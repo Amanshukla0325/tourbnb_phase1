@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tourbnb
+    ports:
+      - '5432:5432'
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    env_file:
+      - ./backend/.env.example
+    ports:
+      - '7000:7000'
+    depends_on:
+      - db
+    command: npm run dev
+    volumes:
+      - ./backend:/usr/src/app
+
+  frontend:
+    build: ./frontend
+    ports:
+      - '5174:5174'
+    command: npm run dev
+    volumes:
+      - ./frontend:/usr/src/app
+
+volumes:
+  dbdata:
