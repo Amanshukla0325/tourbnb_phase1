@@ -14,6 +14,8 @@ model User {
   role          Role
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+  hotels        Hotel[]
+  hotelAssignments HotelManager[]
 }
 
 enum Role {
@@ -33,6 +35,7 @@ model Hotel {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   rooms       Room[]
+  managers    HotelManager[]
 }
 
 model Room {
@@ -46,6 +49,16 @@ model Room {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   bookings      Booking[]
+  availabilities Availability[]
+}
+
+model HotelManager {
+  id        String   @id @default(uuid())
+  hotelId   String
+  hotel     Hotel    @relation(fields: [hotelId], references: [id])
+  managerId String
+  manager   User     @relation(fields: [managerId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 model Booking {
@@ -53,12 +66,55 @@ model Booking {
   roomId    String
   room      Room     @relation(fields: [roomId], references: [id])
   guestId   String?
-  checkIn   DateTime
-  checkOut  DateTime
+  checkIn   DateTime @db.Timestamptz(3)
+  checkOut  DateTime @db.Timestamptz(3)
   status    BookingStatus
   stripePaymentIntentId String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  payment   Payment?
+}
+
+model Availability {
+  id        String   @id @default(uuid())
+  roomId    String
+  room      Room     @relation(fields: [roomId], references: [id])
+  startTime DateTime @db.Timestamptz(3)
+  endTime   DateTime @db.Timestamptz(3)
+  isBlocked Boolean  @default(false)
+  note      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([roomId, startTime])
+}
+
+model Payment {
+  id                      String   @id @default(uuid())
+  bookingId               String   @unique
+  booking                 Booking  @relation(fields: [bookingId], references: [id])
+  stripePaymentIntentId   String   @unique
+  status                  PaymentStatus
+  amount                  Float
+  currency                String
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+}
+
+model ChannelMapping {
+  id             String   @id @default(uuid())
+  roomId         String?
+  externalId     String
+  channel        String
+  metadata       Json?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 enum BookingStatus {

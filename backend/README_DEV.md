@@ -10,3 +10,5 @@
 - Install dependencies: `npm ci`
 - Apply Prisma migrations: `npx prisma migrate dev` (after setting DATABASE_URL)
 - Run dev server: `npm run dev`
+ - To apply migrations to dev Neon: `npx prisma migrate deploy`
+ - Seed database (after migrations): `npm run seed`

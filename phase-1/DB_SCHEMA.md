@@ -47,7 +47,7 @@ This document sketches the initial relational schema for the Tourbnb MVP. We wil
 - guest_id (user id or null if guest checkout)
 - check_in (timestamptz)
 - check_out (timestamptz)
-- booking_interval (tsrange)
+-- booking_interval (tstzrange)
 - status (enum: PENDING, CONFIRMED, CANCELLED)
 - created_at, updated_at
 - stripe_payment_intent_id (string)
@@ -65,7 +65,7 @@ This document sketches the initial relational schema for the Tourbnb MVP. We wil
 - Add `booking_interval` as `tsrange(check_in, check_out)` (exclusive/inclusive semantics per product). Create:
 
 ```sql
-ALTER TABLE bookings ADD COLUMN booking_interval tsrange GENERATED ALWAYS AS (tsrange(check_in, check_out)) STORED;
+ALTER TABLE bookings ADD COLUMN booking_interval tstzrange GENERATED ALWAYS AS (tstzrange(check_in, check_out)) STORED;
 CREATE EXTENSION IF NOT EXISTS btree_gist;
 ALTER TABLE bookings ADD CONSTRAINT bookings_no_overlap EXCLUDE USING gist (room_id WITH =, booking_interval WITH &&);
 ```
