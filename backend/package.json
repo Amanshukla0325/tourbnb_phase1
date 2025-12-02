@@ -10,7 +10,8 @@
     "test": "jest",
     "seed": "node prisma/seed.js",
     "concurrency-api-test": "node tests/concurrency_booking_api_test.js",
-    "auth-rbac-test": "node tests/auth_rbac_api_test.js"
+    "auth-rbac-test": "node tests/auth_rbac_api_test.js",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.8.0",
