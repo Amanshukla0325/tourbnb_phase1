@@ -18,7 +18,9 @@ app.use(express.json());
 const allowedOrigins: string[] = [
   'http://localhost:5174',
   'http://localhost:5175',
-  'https://tourbnb-showcase.vercel.app'  // Will be your Vercel URL
+  'http://localhost:3000',
+  'https://tourbnb-phase1.vercel.app',
+  'https://tourbnb-showcase.vercel.app'
 ];
 
 // Add environment variable for custom frontend origin
@@ -27,8 +29,17 @@ if (process.env.FRONTEND_ORIGIN) {
 }
 
 app.use(cors({ 
-  origin: allowedOrigins, 
-  credentials: true 
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS not allowed'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(cookieParser());
 
