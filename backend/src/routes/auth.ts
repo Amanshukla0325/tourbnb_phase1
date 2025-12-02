@@ -23,8 +23,8 @@ router.post('/register', async (req, res) => {
 
     const cookieOptions = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax' as const,
+      secure: true, // Always use secure in production
+      sameSite: 'none' as const, // Required for cross-origin HTTPS requests
       path: '/',
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     };
@@ -55,8 +55,8 @@ router.post('/login', async (req, res) => {
     const { token, expiresAt } = signJwtToken({ id: user.id, role: user.role });
     const cookieOptions = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax' as const,
+      secure: true, // Always use secure in production
+      sameSite: 'none' as const, // Required for cross-origin HTTPS requests
       path: '/',
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     };
