@@ -29,13 +29,18 @@ model Hotel {
   ownerId     String
   owner       User     @relation(fields: [ownerId], references: [id])
   name        String
+  description String?
+  address     String?
+  city        String?
+  photos      String[]  @default([])
   subdomain   String   @unique
-  timezone    String
-  currency    String
+  timezone    String   @default("UTC")
+  currency    String   @default("USD")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   rooms       Room[]
   managers    HotelManager[]
+  bookings    Booking[]
 }
 
 model Room {
@@ -63,16 +68,18 @@ model HotelManager {
 
 model Booking {
   id        String   @id @default(uuid())
+  hotelId   String
+  hotel     Hotel    @relation(fields: [hotelId], references: [id])
   roomId    String
   room      Room     @relation(fields: [roomId], references: [id])
-  guestId   String?
+  guestEmail String?
+  guestName  String?
   checkIn   DateTime @db.Timestamptz(3)
   checkOut  DateTime @db.Timestamptz(3)
-  status    BookingStatus
-  stripePaymentIntentId String?
+  status    BookingStatus @default(PENDING)
+  notes     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  payment   Payment?
 }
 
 model Availability {
@@ -86,35 +93,6 @@ model Availability {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@index([roomId, startTime])
-}
-
-model Payment {
-  id                      String   @id @default(uuid())
-  bookingId               String   @unique
-  booking                 Booking  @relation(fields: [bookingId], references: [id])
-  stripePaymentIntentId   String   @unique
-  status                  PaymentStatus
-  amount                  Float
-  currency                String
-  createdAt               DateTime @default(now())
-  updatedAt               DateTime @updatedAt
-}
-
-enum PaymentStatus {
-  PENDING
-  SUCCEEDED
-  FAILED
-  REFUNDED
-}
-
-model ChannelMapping {
-  id             String   @id @default(uuid())
-  roomId         String?
-  externalId     String
-  channel        String
-  metadata       Json?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
 }
 
 enum BookingStatus {

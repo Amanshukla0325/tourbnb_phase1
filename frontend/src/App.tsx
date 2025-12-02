@@ -1,10 +1,47 @@
 import React from 'react'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import AdminLogin from './pages/admin/LoginNew'
+import AdminSignup from './pages/admin/Signup'
+import AdminDashboard from './pages/admin/DashboardNew'
+import AdminHotelDetails from './pages/admin/HotelDetails'
+import ManagerLogin from './pages/manager/LoginNew'
+import ManagerSignup from './pages/manager/Signup'
+import ManagerDashboard from './pages/manager/DashboardNew'
+import ManagerRooms from './pages/manager/Rooms'
+import LandingPage from './pages/LandingPage'
+import HotelDetails from './pages/HotelDetails'
+import BookingConfirmation from './pages/BookingConfirmation'
+
+function AppInner(){
+  const location = useLocation();
+  const isAuthRoute = location.pathname.startsWith('/admin/login') || location.pathname.startsWith('/manager/login') ||
+                      location.pathname.startsWith('/admin/signup') || location.pathname.startsWith('/manager/signup');
+  
+  return (
+    <div className="min-h-screen">
+      <main>
+        <Routes>
+          <Route path="/admin/login" element={<AdminLogin/>} />
+          <Route path="/admin/signup" element={<AdminSignup/>} />
+          <Route path="/admin/hotels/:id" element={<AdminHotelDetails/>} />
+          <Route path="/manager/login" element={<ManagerLogin/>} />
+          <Route path="/manager/signup" element={<ManagerSignup/>} />
+          <Route path="/manager/rooms" element={<ManagerRooms/>} />
+          <Route path="/" element={<LandingPage/>} />
+          <Route path="/hotels/:id" element={<HotelDetails/>} />
+          <Route path="/booking-confirmation/:id" element={<BookingConfirmation/>} />
+          <Route path="/admin" element={<AdminDashboard/>} />
+          <Route path="/manager" element={<ManagerDashboard/>} />
+        </Routes>
+      </main>
+    </div>
+  )
+}
 
 export default function App(){
   return (
-    <div className="min-h-screen bg-slate-50 p-8">
-      <h1 className="text-3xl font-bold">Tourbnb (Phase 1)</h1>
-      <p className="mt-4">Admin / Manager / Booking MVP</p>
-    </div>
+    <BrowserRouter>
+      <AppInner />
+    </BrowserRouter>
   )
 }
