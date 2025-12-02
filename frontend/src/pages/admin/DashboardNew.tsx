@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Building2, Users, Plus, LogOut, Menu, X, Edit2, Trash2, Search, TrendingUp, DollarSign, Home } from 'lucide-react';
+import API_URL from '../../config/api';
 
 interface Hotel {
   id: string;

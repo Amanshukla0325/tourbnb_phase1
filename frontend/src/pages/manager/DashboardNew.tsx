@@ -6,6 +6,7 @@ import {
 import {
   LogOut, Plus, Bed, Users, DollarSign, TrendingUp, Edit2, Trash2, CheckCircle, Clock, AlertCircle, Menu, X
 } from 'lucide-react';
+import API_URL from '../../config/api';
 
 interface Hotel {
   id: string;

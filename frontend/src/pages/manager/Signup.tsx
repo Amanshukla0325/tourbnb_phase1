@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/components/AuthLayout';
 import { useNavigate } from 'react-router-dom';
+import API_URL from '../../config/api';
 
 export default function ManagerSignup() {
   const [email, setEmail] = useState('');
