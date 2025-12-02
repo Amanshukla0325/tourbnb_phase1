@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
+import API_URL from '../config/api';
 
 interface BookingDetails {
   id: string;
@@ -44,7 +45,7 @@ export default function BookingConfirmation() {
           data = JSON.parse(sessionBooking);
         } else {
           // Fallback: try to fetch from API
-          const res = await fetch(`http://localhost:7000/api/bookings/${id}`, {
+          const res = await fetch(`${API_URL}/api/bookings/${id}`, {
             credentials: 'include'
           });
           if (res.ok) {

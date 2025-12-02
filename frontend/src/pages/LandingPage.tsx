@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, MapPin, Calendar, Users, Menu, X, Building2, ChevronRight, Sparkles, Star, Moon, Sun, ArrowRight, Bed, Coffee, Wifi, Car } from 'lucide-react';
+import API_URL from '../config/api';
 
 interface Hotel {
   id: string;
@@ -41,8 +42,8 @@ export default function LandingPage() {
     setSearched(true);
     try {
       const url = city 
-        ? `http://localhost:7000/api/hotels?city=${encodeURIComponent(city)}`
-        : 'http://localhost:7000/api/hotels';
+        ? `${API_URL}/api/hotels?city=${encodeURIComponent(city)}`
+        : `${API_URL}/api/hotels`;
       const res = await fetch(url);
       const data = await res.json();
       setHotels(Array.isArray(data) ? data : []);

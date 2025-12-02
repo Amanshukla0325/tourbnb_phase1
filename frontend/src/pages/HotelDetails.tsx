@@ -4,6 +4,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import type { DateRange } from 'react-day-picker';
 import { Building2, MapPin, Users, ArrowLeft, Star, Check, Wifi, Coffee, Car, Bed, Shield, Clock, ChevronRight, Calendar as CalendarIcon, User, Mail, Phone, MessageSquare } from 'lucide-react';
+import API_URL from '../config/api';
 
 interface Room {
   id: string;
@@ -336,7 +337,7 @@ export default function HotelDetails() {
   useEffect(() => {
     const fetchHotel = async () => {
       try {
-        const res = await fetch(`http://localhost:7000/api/hotels/${id}`);
+        const res = await fetch(`${API_URL}/api/hotels/${id}`);
         const data = await res.json();
         setHotel(data);
         if (data.rooms && data.rooms.length > 0) {
@@ -374,7 +375,7 @@ export default function HotelDetails() {
     setError('');
     setBooking(true);
     try {
-      const res = await fetch('http://localhost:7000/api/bookings', {
+      const res = await fetch(`${API_URL}/api/bookings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -41,11 +41,11 @@ export default function ManagerDashboard() {
   const fetchData = async () => {
     try {
       const [hotelRes, bookingsRes] = await Promise.all([
-        fetch('http://localhost:7000/api/manager/hotel', {
+        fetch(`${API_URL}/api/manager/hotel`, {
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include'
         }),
-        fetch('http://localhost:7000/api/manager/bookings', {
+        fetch(`${API_URL}/api/manager/bookings`, {
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include'
         })
@@ -71,7 +71,7 @@ export default function ManagerDashboard() {
 
   const updateBookingStatus = async (bookingId: string, newStatus: string) => {
     try {
-      const res = await fetch(`http://localhost:7000/api/manager/bookings/${bookingId}`, {
+      const res = await fetch(`${API_URL}/api/manager/bookings/${bookingId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -89,7 +89,7 @@ export default function ManagerDashboard() {
   };
 
   const handleLogout = async () => {
-    await fetch('http://localhost:7000/api/auth/logout', {
+    await fetch(`${API_URL}/api/auth/logout`, {
       method: 'POST',
       credentials: 'include'
     });

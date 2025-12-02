@@ -89,7 +89,7 @@ export default function ManagerDashboardNew() {
 
   const fetchHotelData = async () => {
     try {
-      const res = await fetch('http://localhost:7000/api/manager/hotel', {
+      const res = await fetch(`${API_URL}/api/manager/hotel`, {
         credentials: 'include'
       });
 
@@ -106,7 +106,7 @@ export default function ManagerDashboardNew() {
       setRooms(hotelData.rooms || []);
 
       // Fetch bookings
-      const bookingsRes = await fetch('http://localhost:7000/api/manager/bookings', {
+      const bookingsRes = await fetch(`${API_URL}/api/manager/bookings`, {
         credentials: 'include'
       });
 
@@ -124,7 +124,7 @@ export default function ManagerDashboardNew() {
 
   const handleLogout = async () => {
     try {
-      await fetch('http://localhost:7000/api/auth/logout', { credentials: 'include' });
+      await fetch(`${API_URL}/api/auth/logout`, { credentials: 'include' });
     } finally {
       navigate('/manager/login');
     }
@@ -138,7 +138,7 @@ export default function ManagerDashboardNew() {
     }
 
     try {
-      const res = await fetch(`http://localhost:7000/api/manager/rooms`, {
+      const res = await fetch(`${API_URL}/api/manager/rooms`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -164,7 +164,7 @@ export default function ManagerDashboardNew() {
     if (!confirm('Are you sure you want to delete this room?')) return;
 
     try {
-      const res = await fetch(`http://localhost:7000/api/manager/rooms/${roomId}`, {
+      const res = await fetch(`${API_URL}/api/manager/rooms/${roomId}`, {
         method: 'DELETE',
         credentials: 'include'
       });
@@ -182,7 +182,7 @@ export default function ManagerDashboardNew() {
 
   const handleUpdateBooking = async (bookingId: string, status: string) => {
     try {
-      const res = await fetch(`http://localhost:7000/api/manager/bookings/${bookingId}`, {
+      const res = await fetch(`${API_URL}/api/manager/bookings/${bookingId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

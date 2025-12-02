@@ -59,8 +59,8 @@ export default function AdminDashboard() {
   const fetchData = async () => {
     try {
       const [hotelsRes, managersRes] = await Promise.all([
-        fetch('http://localhost:7000/api/admin/hotels', { credentials: 'include' }),
-        fetch('http://localhost:7000/api/admin/managers', { credentials: 'include' })
+        fetch(`${API_URL}/api/admin/hotels`, { credentials: 'include' }),
+        fetch(`${API_URL}/api/admin/managers`, { credentials: 'include' })
       ]);
 
       if (hotelsRes.status === 401 || managersRes.status === 401) {
@@ -118,7 +118,7 @@ export default function AdminDashboard() {
     }
 
     try {
-      const res = await fetch('http://localhost:7000/api/admin/hotels', {
+      const res = await fetch(`${API_URL}/api/admin/hotels`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -156,7 +156,7 @@ export default function AdminDashboard() {
     }
 
     try {
-      const res = await fetch('http://localhost:7000/api/auth/register', {
+      const res = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -193,7 +193,7 @@ export default function AdminDashboard() {
     }
 
     try {
-      const res = await fetch('http://localhost:7000/api/auth/register', {
+      const res = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -226,7 +226,7 @@ export default function AdminDashboard() {
     }
 
     try {
-      const res = await fetch(`http://localhost:7000/api/admin/hotels/${assignForm.hotelId}/assign-manager`, {
+      const res = await fetch(`${API_URL}/api/admin/hotels/${assignForm.hotelId}/assign-manager`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -252,7 +252,7 @@ export default function AdminDashboard() {
     if (!confirm('Are you sure? This cannot be undone.')) return;
 
     try {
-      const res = await fetch(`http://localhost:7000/api/admin/hotels/${hotelId}`, {
+      const res = await fetch(`${API_URL}/api/admin/hotels/${hotelId}`, {
         method: 'DELETE',
         credentials: 'include'
       });
@@ -269,7 +269,7 @@ export default function AdminDashboard() {
   };
 
   const handleLogout = async () => {
-    await fetch('http://localhost:7000/api/auth/logout', {
+    await fetch(`${API_URL}/api/auth/logout`, {
       method: 'POST',
       credentials: 'include'
     });

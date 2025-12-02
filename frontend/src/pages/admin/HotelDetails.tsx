@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import API_URL from '../../config/api';
 
 interface Hotel {
   id: string;
@@ -70,7 +71,7 @@ export default function AdminHotelDetails({ hotelId }: AdminHotelDetailsProps) {
 
   const fetchHotelDetails = async () => {
     try {
-      const res = await fetch(`http://localhost:7000/api/admin/hotels/${hotelIdToUse}`, {
+      const res = await fetch(`${API_URL}/api/admin/hotels/${hotelIdToUse}`, {
         credentials: 'include'
       });
       if (!res.ok) {
@@ -92,7 +93,7 @@ export default function AdminHotelDetails({ hotelId }: AdminHotelDetailsProps) {
       
       // Fetch bookings for this hotel
       try {
-        const bookingsRes = await fetch(`http://localhost:7000/api/admin/hotels/${hotelIdToUse}/bookings`, {
+        const bookingsRes = await fetch(`${API_URL}/api/admin/hotels/${hotelIdToUse}/bookings`, {
           credentials: 'include'
         });
         if (bookingsRes.ok) {
@@ -114,7 +115,7 @@ export default function AdminHotelDetails({ hotelId }: AdminHotelDetailsProps) {
     if (!hotel) return;
     
     try {
-      const res = await fetch(`http://localhost:7000/api/admin/hotels/${hotel.id}`, {
+      const res = await fetch(`${API_URL}/api/admin/hotels/${hotel.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -141,7 +142,7 @@ export default function AdminHotelDetails({ hotelId }: AdminHotelDetailsProps) {
     }
 
     try {
-      const res = await fetch(`http://localhost:7000/api/admin/hotels/${hotel.id}/rooms`, {
+      const res = await fetch(`${API_URL}/api/admin/hotels/${hotel.id}/rooms`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -166,7 +167,7 @@ export default function AdminHotelDetails({ hotelId }: AdminHotelDetailsProps) {
     if (!window.confirm('Are you sure you want to delete this room?')) return;
 
     try {
-      const res = await fetch(`http://localhost:7000/api/admin/hotels/${hotel?.id}/rooms/${roomId}`, {
+      const res = await fetch(`${API_URL}/api/admin/hotels/${hotel?.id}/rooms/${roomId}`, {
         method: 'DELETE',
         credentials: 'include'
       });

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Eye, EyeOff } from 'lucide-react';
+import API_URL from '../../config/api';
 
 export default function AdminLoginNew() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function AdminLoginNew() {
     setLoading(true);
 
     try {
-      const res = await fetch('http://localhost:7000/api/auth/login', {
+      const res = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

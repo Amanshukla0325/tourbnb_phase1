@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API_URL from '../../config/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -34,7 +35,7 @@ export default function AdminDashboard() {
 
   const fetchHotels = async () => {
     try {
-      const res = await fetch('http://localhost:7000/api/admin/hotels', {
+      const res = await fetch(`${API_URL}/api/admin/hotels`, {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'
       });
@@ -60,7 +61,7 @@ export default function AdminDashboard() {
       return;
     }
     try {
-      const res = await fetch('http://localhost:7000/api/admin/hotels', {
+      const res = await fetch(`${API_URL}/api/admin/hotels`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -93,7 +94,7 @@ export default function AdminDashboard() {
       return;
     }
     try {
-      const res = await fetch('http://localhost:7000/api/auth/register', {
+      const res = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -126,7 +127,7 @@ export default function AdminDashboard() {
       return;
     }
     try {
-      const res = await fetch('http://localhost:7000/api/auth/register', {
+      const res = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -155,7 +156,7 @@ export default function AdminDashboard() {
       return;
     }
     try {
-      const res = await fetch(`http://localhost:7000/api/admin/hotels/${hotelId}/assign-manager`, {
+      const res = await fetch(`${API_URL}/api/admin/hotels/${hotelId}/assign-manager`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -178,7 +179,7 @@ export default function AdminDashboard() {
   };
 
   const handleLogout = async () => {
-    await fetch('http://localhost:7000/api/auth/logout', {
+    await fetch(`${API_URL}/api/auth/logout`, {
       method: 'POST',
       credentials: 'include'
     });

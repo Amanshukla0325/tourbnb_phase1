@@ -19,7 +19,7 @@ export default function AdminSignup() {
     // Check if any admin already exists
     const checkAdminExists = async () => {
       try {
-        const res = await fetch('http://localhost:7000/api/admin/exists', {
+        const res = await fetch(`${API_URL}/api/admin/exists`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });
@@ -49,7 +49,7 @@ export default function AdminSignup() {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:7000/api/auth/register', {
+      const res = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
