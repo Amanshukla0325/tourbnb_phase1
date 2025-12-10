@@ -1,29 +1,81 @@
-node_modules
+# Dependencies
+node_modules/
+*.pnp
+.pnp.js
+package-lock.json
+
+# Testing
+coverage/
+.jest/
+*.lcov
+/backend/tests/__coverage__
+
+# Production build
+dist/
+build/
+out/
+
+# Environment variables
 .env
 .env.local
-dist
-build
-coverage
+.env.*.local
+.env.production.local
+
+# IDE & Editor
+.vscode/
+.idea/
 .DS_Store
-.vscode
-.idea
-*.log
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.project
+.classpath
+
+# OS
+Thumbs.db
+.DS_Store
+*.DS_Store
+
+# Build outputs
+tsconfig.tsbuildinfo
+*.js.map
+*.ts.map
+
+# Database
 *.sqlite
+*.sqlite3
 /prisma/dev.db
+.prisma/
 
 # Docker
 docker-compose.override.yml
 
-# Mac
-*.DS_Store
-
-# Windows
-Thumbs.db
-
-# Terraform state
-*.tfstate
+# Cache & Temp
+.eslintcache
+.cache/
+.parcel-cache
+.next/
 
 # Logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+
+# Misc
+*.bak
+*.swp
+~*
+*.tmp
+.env.test
+
+# Terraform
+*.tfstate*
+
+# Vercel
+.vercel
+.vercel/
